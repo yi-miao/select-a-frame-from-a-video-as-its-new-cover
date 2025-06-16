@@ -80,7 +80,7 @@ class CoverSelector:
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":  
-    # usesage: python vcover.py -v "test.mp4" -c selected.jpg
+    # usesage: python vcover.py -v "video.mp4" -c selected.jpg
     import argparse
 
     parser = argparse.ArgumentParser(description="Process video and cover file.")
