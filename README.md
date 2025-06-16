@@ -1,4 +1,4 @@
-# select-a-from-from-a-video-as-its-new-cover
+# select-a-frame-from-a-video-as-its-new-cover
 select a frame from a mp4 video as its new cover or thumbnail
 1. usesage: python vcover.py -v "video.mp4" -c selected.jpg
 2. load a video in the format of mp4
