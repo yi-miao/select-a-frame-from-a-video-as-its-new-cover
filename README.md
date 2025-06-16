@@ -9,3 +9,4 @@ select a frame from a mp4 video as its new cover or thumbnail
 7. the new cover is saved in the current directory, say selected.jpg, for convenience and perseverance
 8. press c to confirm the selection as final and change the cover or thumbnail of the video
 9. view the video with the new cover with File Explorer on Windows pc
+10. vwcover.py is pretty much a Windows version of vcover.py
