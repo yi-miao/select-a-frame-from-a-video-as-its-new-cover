@@ -32,13 +32,6 @@ class CoverSelector:
         self.cap = cv2.VideoCapture(self.video)
         frame_count = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_index = 0
-        
-        # Font settings
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 1.0
-        font_color = (0, 255, 0)  # White text
-        thickness = 2
-       
         print(f"Controls: Space = Pause/Resume, ← back {num_frames} frames, → forward {num_frames} frames, 's' select, 'q' quit")
         while True:
             self.cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
@@ -47,10 +40,8 @@ class CoverSelector:
                 print("End of video or invalid frame.")
                 break
             percent = (frame_index / frame_count) * 100
-            print(f"Frame {frame_index} — {percent:.1f}% through the video")
             footer_text = "Frame " + str(frame_index) + " - " + str(round(percent, 1)) + " %" 
-            position = (10, frame.shape[0] - 20)  # Bottom-left corner
-            cv2.putText(frame, footer_text, position, font, font_scale, font_color, thickness)
+            cv2.setWindowTitle(window_name, footer_text)
             cv2.imshow(window_name, frame)
             key = cv2.waitKeyEx(0)
             if key == ord('q'):     # quit
@@ -80,7 +71,7 @@ class CoverSelector:
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":  
-    # usesage: python vcover.py -v "video.mp4" -c selected.jpg
+    # usesage: python vcover.py -v "test.mp4" -c selected.jpg
     import argparse
 
     parser = argparse.ArgumentParser(description="Process video and cover file.")
@@ -93,4 +84,4 @@ if __name__ == "__main__":
     print(f"Cover file selected: {args.cover}")
     
     vcs = CoverSelector(args.video, args.cover)
-    vcs.run()
+    vcs.run(60)
