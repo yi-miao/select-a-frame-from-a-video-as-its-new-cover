@@ -3,7 +3,7 @@ from tkinter import filedialog
 import vlc
 import time
 import os
-from mutagen.mp4 import MP4, MP4Cover
+import subprocess
 
 class VideoPlayerApp:
     def __init__(self, root):
@@ -163,18 +163,16 @@ class VideoPlayerApp:
         if self.player:
             self.__del__()
             time.sleep(0.1)
-     
-        try:
-            # Create MP4Cover object with the image data, set cover, and save it
-            video = MP4(self.file_path)
-            with open(self.selected_file, 'rb') as f:
-                cover_data = f.read()
-            cover = MP4Cover(cover_data, imageformat=MP4Cover.FORMAT_JPEG)        
-            video['covr'] = [cover]
-            video.save()
-            print(f"Successfully set cover for {self.file_path}")
-        except Exception as e:
-            print(f"Error: {e}")
+
+        self.output = "output/" + os.path.basename(self.file_path)
+        command = [
+            "ffmpeg", "-y", "-loglevel", "error", "-i", self.file_path, "-i", self.selected_file,
+            "-map", "0", "-map", "1",
+            "-c", "copy", "-disposition:v:1", "attached_pic",
+            self.output
+        ]        
+        subprocess.run(command, check=True)
+        print(f"Successfully updated cover for {self.file_path} -> {self.output}")
 
     def resize_video(self, event):
         if self.player:
